@@ -2,8 +2,7 @@ package com.example.anuragtomar.shoppinglist.ui.shoppinglist
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.anuragtomar.shoppinglist.R
@@ -24,7 +23,7 @@ class ShoppingActivity : AppCompatActivity(), KodeinAware {
         setContentView(R.layout.activity_shopping)
 
         val shoppingViewModel =
-            ViewModelProviders.of(this, factory).get(ShoppingViewModel::class.java)
+            ViewModelProvider(this, factory)[ShoppingViewModel::class.java]
 
         val recyclerView: RecyclerView? = findViewById(R.id.rvShoppingItems)
         val fab: FloatingActionButton? = findViewById(R.id.fab)
@@ -34,10 +33,10 @@ class ShoppingActivity : AppCompatActivity(), KodeinAware {
         val adapter = ShoppingItemAdapter(listOf(), shoppingViewModel)
         recyclerView?.adapter = adapter
 
-        shoppingViewModel.getAllShoppingItems().observe(this, Observer {
+        shoppingViewModel.getAllShoppingItems().observe(this) {
             adapter.itemList = it
             adapter.notifyDataSetChanged()
-        })
+        }
 
         fab?.setOnClickListener {
             AddShoppingItemDialog(this, object : AddDialogListener {

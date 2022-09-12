@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatDialog
 import com.example.anuragtomar.shoppinglist.R
 import com.example.anuragtomar.shoppinglist.data.db.entity.ShoppingItem
 
-class AddShoppingItemDialog(context: Context, var addDialogListener: AddDialogListener) :
+class AddShoppingItemDialog(context: Context, private var addDialogListener: AddDialogListener) :
     AppCompatDialog(context) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
